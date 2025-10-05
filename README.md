@@ -74,3 +74,97 @@ M[0] = 0
 \\
 M[k] = max(M[k-1],max_{0 \leq s \leq k-1} (M[s] + min(x[k],f(k-s)))) \ con \ k = 1...n
 ```
+## Propuesta Algoritmo
+Dada la secuencia de llegadas de enemigos:
+
+```math
+x_1, x_2, \dots, x_n
+```
+y una función de recarga $f(\cdot)$ (dada por una tabla, por lo cual puede considerarse directamente como una secuencia de valores), se busca:
+- Determinar la **cantidad máxima de enemigos que se pueden atacar**.  
+- Identificar **en qué momentos se realizarían los ataques**.
+
+### Idea
+Resolver por PD teniendo en cuenta:
+- **Tiempo actual** $i$ (índice en la secuencia de llegadas).
+- **Cantidad de munición disponible** $s$ (estado de recarga).
+
+Entonces...
+```math
+OPT(i, s) = \text{máxima cantidad de enemigos que se pueden atacar a partir del instante } i \text{ con } s \text{ municiones disponibles.}
+```
+donde
+```math
+0 \leq s \leq k-1
+```
+
+Planteamos los casos anteriores:
+1. **Si no atacamos en $i$**:
+   
+```math
+OPT(i, s) = OPT(i+1, \min(k-1, s + f(i)))
+```
+
+2. **Si atacamos en $i$ (y $s > 0$)**:
+
+```math
+OPT(i, s) = 1 + OPT(i+1, \min(k-1, s - 1 + f(i)))
+```
+
+3. **Tomamos el máximo**:
+```math
+OPT(i, s) = \max \Big\{ \;\\ OPT(i+1, \min(k-1, s + f(i))) \;,\;\\ 1 + OPT(i+1, \min(k-1, s - 1 + f(i))) \;\Big\}
+```
+
+#### Condición base
+
+```math
+OPT(n+1, s) = 0 \quad \forall s
+```
+
+#### Solución final
+
+La respuesta al problema es:
+
+```math
+OPT(1, s_0)
+```
+donde $s_0$ es la munición inicial disponible.
+
+### Pseudocódigo
+ ```pseudo
+Entrada: 
+    n = número de minutos
+    k = máxima energía acumulable
+    x[1..n] = enemigos que llegan en cada minuto
+    f[1..n] = tabla de recarga de energía
+    s0 = energía inicial (generalmente 0)
+
+Definir tabla OPT[0..n+1][0..k-1]
+
+Caso base:
+    Para todo s en [0..k-1]:
+        OPT[n+1][s] = 0   // no hay más minutos -> no elimino enemigos
+
+Recurrencia (se llena hacia atrás):
+    Para i desde n hasta 1:
+        Para cada s en [0..k-1]:   // energía disponible en este minuto
+
+            // Opción 1: No atacar en el minuto i
+            recarga1 = min(k-1, s + f[i])
+            no_atacar = OPT[i+1][recarga1]
+
+            // Opción 2: Atacar en el minuto i (solo si tengo energía)
+            si s > 0 entonces:
+                recarga2 = min(k-1, (s - 1) + f[i])
+                enemigos_eliminados = min(x[i], f[s])
+                atacar = enemigos_eliminados + OPT[i+1][recarga2]
+            si no:
+                atacar = -∞   // no es posible atacar
+
+            // Decisión óptima
+            OPT[i][s] = max(no_atacar, atacar)
+
+Respuesta:
+    OPT[1][s0]   // máxima cantidad de enemigos eliminados desde el minuto 1
+```
