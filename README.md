@@ -45,27 +45,32 @@ Entonces, definimos:
 3. Atacar en $k$. Entonces tiene que existir un minuto $s$ (entre $0$ y $k-1$) que sea el último minuto donde se atacó antes de $k$ (si no hubo ninguno $s = 0$). Si el último ataque fue en $s$, el beneficio adicional por atacar en $k$ es $min(x[k],f(k-s))$ y el óptimo hasta $s$ es `M[s]`.
 
 Entonces una opción es:
-$$ M[s] + min(x[k],f(k-s)) $$
+```math
+M[s] + min(x[k],f(k-s))
+```
 
 
 Planteo caso base:
-$$M[0] = 0$$
+```math
+M[0] = 0
+```
 
 Caso general:
-$$M[k] = max(no\ atacar,atacar)$$
+```math
+M[k] = max(no\ atacar,atacar)
+````
 Donde no atacar es:
 ```math 
 M[k-1]
 ```
 Donde atacar es:
-`agregar s pertenece [0,k-1]`
 ```math
-max(M[s] + min(x[k],f(k-s)))
+max_{0 \leq s \leq k-1}(M[s] + min(x[k],f(k-s)))
 ```
 
 Entonces la ecuación de recurrencia es:
 ```math
 M[0] = 0
 \\
-M[k] = max(M[k-1],max(M[s] + min(x[k],f(k-s)))) \ con \ k = 1...n
+M[k] = max(M[k-1],max_{0 \leq s \leq k-1} (M[s] + min(x[k],f(k-s)))) \ con \ k = 1...n
 ```
