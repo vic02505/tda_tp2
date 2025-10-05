@@ -160,7 +160,7 @@ Recurrencia (se llena hacia atrás):
                 enemigos_eliminados = min(x[i], f[s])
                 atacar = enemigos_eliminados + OPT[i+1][recarga2]
             si no:
-                atacar = -∞   // no es posible atacar
+                atacar = -inf   // no es posible atacar
 
             // Decisión óptima
             OPT[i][s] = max(no_atacar, atacar)
