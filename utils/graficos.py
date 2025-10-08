@@ -10,7 +10,7 @@ import time
 random.seed(12345)
 np.random.seed(12345)
 
-# Genera listas de batallas (t, b)
+# Genera listas de batallas
 def generar_batallas(n):
     soldados = np.random.randint(1, 1000, n)
     ataques = np.random.randint(1, 5000, n)
@@ -61,7 +61,7 @@ def generar_grafico():
     (c1, c2), _ = sp.optimize.curve_fit(modelo_n2, x, y)
     print(f"Ajuste encontrado: c1={c1}, c2={c2}")
 
-    # c1 es la pendiente escalada del término n log(n). Indica cuánto “crece” el tiempo de ejecución en función del tamaño n. Es la constante que acompaña a la complejidad teórica O(n log n).
+    # c1 es la pendiente escalada del término n^2. Indica cuánto “crece” el tiempo de ejecución en función del tamaño n. Es la constante que acompaña a la complejidad teórica O(n^2).
 
     # c2 es un desfase o tiempo base. Representa un tiempo inicial “fijo” que el algoritmo tarda independientemente del tamaño (por ejemplo, overhead de iniciar la función).
 
@@ -84,7 +84,7 @@ def generar_grafico():
     plt.plot(x, y_pred, "r--", label="Ajuste $n^2$")
     plt.xlabel("Tamaño n")
     plt.ylabel("Tiempo (s)")
-    plt.title("Tiempo de ejecución de planificar_batallas")
+    plt.title("Tiempo de ejecución de planear_estrategia")
     plt.legend()
     plt.show()
 
