@@ -12,11 +12,11 @@ Repositorio del segundo trabajo práctico de la materia Teoría de Algoritmos.
 
 El programa consta de los siguientes modos de ejecución:
 
-1. Archivos de la cátedra: Corre el algoritmo sobre alguno de los archivos de prueba provistos por la cátedra.
-2. Pruebas sobre los archivos de la cátedra: Corre pruebas sobre los archivos provistos por la cátedra.
-3. Archivos propios: Corre el algoritmo sobre archivos propios diseñados para estudiar algún caso particular.
-4. Pruebas sobre archivos propios: Al igual que el modo #2 se usa para correr pruebas, pero sobre los archivos propios.
-5. Generar gráficos: Se usa para generar gráficos de los tiempos de ejecución del algoritmo.
+**1. Archivos de la cátedra:** Corre el algoritmo sobre alguno de los archivos de prueba provistos por la cátedra.
+**2. Pruebas sobre los archivos de la cátedra:** Corre pruebas sobre los archivos provistos por la cátedra.
+**3. Archivos propios:** Corre el algoritmo sobre archivos propios diseñados para estudiar algún caso particular.
+**4. Pruebas sobre archivos propios:** Al igual que el modo #2 se usa para correr pruebas, pero sobre los archivos propios.
+**5. Generar gráficos:** Se usa para generar gráficos de los tiempos de ejecución del algoritmo.
 
 ### Ejecución del algoritmo sobre algún archivo de datos:
 
@@ -40,7 +40,7 @@ El programa consta de los siguientes modos de ejecución:
     python3 main.py 3 <nombre_archivo>
     ```
      **NOTA:** nombre_archivo es el nombre de un archivo (e excepcion del archivo de salidas esperadas) del directorio
-    archivos_de_prueba/pruebas_propias. Por ejemplo una línea de ejecución válida es `python3 main.py 1 5.txt`.
+    archivos_de_prueba/pruebas_propias. Por ejemplo una línea de ejecución válida es `python3 main.py 3 5.txt`.
 
 4. Pruebas sobre archivos propios:
     
@@ -53,7 +53,7 @@ El programa consta de los siguientes modos de ejecución:
     ```bash
     python3 main.py 5
     ```
-   **NOTA:**: Para generar los gráficos es necesario contar con las dependencias matplotlib, numpy y scipy. 
+   **NOTA:** Para generar los gráficos es necesario contar con las dependencias matplotlib, numpy y scipy. 
    Las versiones más avanzadas de ubuntu impiden descargar las dependencias de forma directa, por lo que es 
    necesario hacer uso de un venv en el que ejecutar el programa.
 
