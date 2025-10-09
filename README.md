@@ -13,9 +13,13 @@ Repositorio del segundo trabajo práctico de la materia Teoría de Algoritmos.
 El programa consta de los siguientes modos de ejecución:
 
 **1. Archivos de la cátedra:** Corre el algoritmo sobre alguno de los archivos de prueba provistos por la cátedra.
+
 **2. Pruebas sobre los archivos de la cátedra:** Corre pruebas sobre los archivos provistos por la cátedra.
+
 **3. Archivos propios:** Corre el algoritmo sobre archivos propios diseñados para estudiar algún caso particular.
+
 **4. Pruebas sobre archivos propios:** Al igual que el modo #2 se usa para correr pruebas, pero sobre los archivos propios.
+
 **5. Generar gráficos:** Se usa para generar gráficos de los tiempos de ejecución del algoritmo.
 
 ### Ejecución del algoritmo sobre algún archivo de datos:
