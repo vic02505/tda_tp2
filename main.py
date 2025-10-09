@@ -37,7 +37,7 @@ def main():
     elif (modo_de_ejecucion == PRUEBAS_ARCHIVOS_CATEDRA) or (modo_de_ejecucion == PRUEBAS_ARCHIVOS_PROPIOS):
         correr_pruebas(modo_de_ejecucion)
     elif modo_de_ejecucion == GENERAR_GRAFICO:
-        print(None)
+        print("Generando grafico...")
         #generar_grafico()
     else:
         raise Exception("Modo de ejecución incorrecto")

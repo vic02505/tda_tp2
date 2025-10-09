@@ -10,161 +10,57 @@ Repositorio del segundo trabajo práctico de la materia Teoría de Algoritmos.
 
 ## Instrucciones de ejecución:
 
-1. Para correr el algoritmo sobre un archivo con datos de BLABLA:
+El programa consta de los siguientes modos de ejecución:
 
-```bash
-python3 main.py 1 <nombre_de_archivo>
-```
-**Nota:** Los nombres de archivos válidos son los que se encuentran en el directorio **archivos_de_prueba** del proyecto. Por ejemplo,
-para correr el algoritmo sobre el archivo **10.txt** es necesario escribir desde la raíz del proyecto la línea 
-de comandos `python3 main.py 1 10.txt`.
+1. Archivos de la cátedra: Corre el algoritmo sobre alguno de los archivos de prueba provistos por la cátedra.
+2. Pruebas sobre los archivos de la cátedra: Corre pruebas sobre los archivos provistos por la cátedra.
+3. Archivos propios: Corre el algoritmo sobre archivos propios diseñados para estudiar algún caso particular.
+4. Pruebas sobre archivos propios: Al igual que el modo #2 se usa para correr pruebas, pero sobre los archivos propios.
+5. Generar gráficos: Se usa para generar gráficos de los tiempos de ejecución del algoritmo.
 
-2. Para correr los tests sobre todos los archivos con BLABLA:
+### Ejecución del algoritmo sobre algún archivo de datos:
 
-```bash
-python3 main.py 2
-```
-# Análisis del problema
-- Tenemos minutos de $1...n$. En el minuto $i$ llegan $x[i]$ soldados.
-- Si ejecutamos un ataque en el minuto $k$, y el último ataque previo fue en el minuto $s$ (tomamos $s = 0$ si no hubo ataques antes), entonces pasó $j = k - s$ minutos de carga y el ataque elimina el $min( x[k], f(j) )$.
-- Inicialmente no hay energía acumulada. Si ataco en el minuto 1 entonces $j = 1$ y la energía disponible es $f(1)$. Esto se puede modelar bien si consideramos que hubo un último ataque ficticio en $s = 0$.
-- Queremos elegir un subconjunto de minutos en los que atacar para **maximizar la suma** de los soldados eliminados.
+1. Archivos de la cátedra:
 
-$f$ es monótona creciente.
-## Recurrencia
-Tenemos que:
-- hallar la máxima cantidad de enemigos eliminados
-- considerando sólo los minutos $1...k$.
+    ```bash
+    python3 main.py 1 <nombre_archivo>
+    ```
+    **NOTA:** nombre_archivo es el nombre de un archivo (e excepcion del archivo de salidas esperadas) del directorio
+    archivos_de_prueba/pruebas_catedra. Por ejemplo una línea de ejecución válida es `python3 main.py 1 5.txt`.
 
-Estoy en el problema *lo pongo, no lo pongo*. Es decir, tengo que atacar en $k$ o no atacar en $k$.
+2. Pruebas sobre archivos de la cátedra:
 
-Entonces, definimos:
-1. `M[K] = max cantidad de enemigos eliminados`
+    ```bash
+    python3 main.py 2
+    ```
 
-2. No atacar en $k$ = `M[K-1]` 
-3. Atacar en $k$. Entonces tiene que existir un minuto $s$ (entre $0$ y $k-1$) que sea el último minuto donde se atacó antes de $k$ (si no hubo ninguno $s = 0$). Si el último ataque fue en $s$, el beneficio adicional por atacar en $k$ es $min(x[k],f(k-s))$ y el óptimo hasta $s$ es `M[s]`.
+3. Archivos propios:
 
-Entonces una opción es:
-```math
-M[s] + min(x[k],f(k-s))
-```
+    ```bash
+    python3 main.py 3 <nombre_archivo>
+    ```
+     **NOTA:** nombre_archivo es el nombre de un archivo (e excepcion del archivo de salidas esperadas) del directorio
+    archivos_de_prueba/pruebas_propias. Por ejemplo una línea de ejecución válida es `python3 main.py 1 5.txt`.
 
+4. Pruebas sobre archivos propios:
+    
+    ```bash
+    python3 main.py 4
+    ```
 
-Planteo caso base:
-```math
-M[0] = 0
-```
+5. Generador de gráficos:
 
-Caso general:
-```math
-M[k] = max(no\ atacar,atacar)
-````
-Donde no atacar es:
-```math 
-M[k-1]
-```
-Donde atacar es:
-```math
-max_{0 \leq s \leq k-1}(M[s] + min(x[k],f(k-s)))
-```
+    ```bash
+    python3 main.py 5
+    ```
+   **NOTA:**: Para generar los gráficos es necesario contar con las dependencias matplotlib, numpy y scipy. 
+   Las versiones más avanzadas de ubuntu impiden descargar las dependencias de forma directa, por lo que es 
+   necesario hacer uso de un venv en el que ejecutar el programa.
 
-Entonces la ecuación de recurrencia es:
-```math
-M[0] = 0
-\\
-M[k] = max(M[k-1],max_{0 \leq s \leq k-1} (M[s] + min(x[k],f(k-s)))) \ con \ k = 1...n
-```
-## Propuesta Algoritmo
-Dada la secuencia de llegadas de enemigos:
-
-```math
-x_1, x_2, \dots, x_n
-```
-y una función de recarga $f(\cdot)$ (dada por una tabla, por lo cual puede considerarse directamente como una secuencia de valores), se busca:
-- Determinar la **cantidad máxima de enemigos que se pueden atacar**.  
-- Identificar **en qué momentos se realizarían los ataques**.
-
-### Idea
-Resolver por PD teniendo en cuenta:
-- **Tiempo actual** $i$ (índice en la secuencia de llegadas).
-- **Cantidad de munición disponible** $s$ (estado de recarga).
-
-Entonces...
-```math
-OPT(i, s) = \text{máxima cantidad de enemigos que se pueden atacar a partir del instante } i \text{ con } s \text{ municiones disponibles.}
-```
-donde
-```math
-0 \leq s \leq k-1
-```
-
-Planteamos los casos anteriores:
-1. **Si no atacamos en $i$**:
-   
-```math
-OPT(i, s) = OPT(i+1, \min(k-1, s + f(i)))
-```
-
-2. **Si atacamos en $i$ (y $s > 0$)**:
-
-```math
-OPT(i, s) = 1 + OPT(i+1, \min(k-1, s - 1 + f(i)))
-```
-
-3. **Tomamos el máximo**:
-```math
-OPT(i, s) = \max \Big\{ \;\\ OPT(i+1, \min(k-1, s + f(i))) \;,\;\\ 1 + OPT(i+1, \min(k-1, s - 1 + f(i))) \;\Big\}
-```
-
-#### Condición base
-
-```math
-OPT(n+1, s) = 0 \quad \forall s
-```
-
-#### Solución final
-
-La respuesta al problema es:
-
-```math
-OPT(1, s_0)
-```
-donde $s_0$ es la munición inicial disponible.
-
-### Pseudocódigo
- ```pseudo
-Entrada: 
-    n = número de minutos
-    k = máxima energía acumulable
-    x[1..n] = enemigos que llegan en cada minuto
-    f[1..n] = tabla de recarga de energía
-    s0 = energía inicial (generalmente 0)
-
-Definir tabla OPT[0..n+1][0..k-1]
-
-Caso base:
-    Para todo s en [0..k-1]:
-        OPT[n+1][s] = 0   // no hay más minutos -> no elimino enemigos
-
-Recurrencia (se llena hacia atrás):
-    Para i desde n hasta 1:
-        Para cada s en [0..k-1]:   // energía disponible en este minuto
-
-            // Opción 1: No atacar en el minuto i
-            recarga1 = min(k-1, s + f[i])
-            no_atacar = OPT[i+1][recarga1]
-
-            // Opción 2: Atacar en el minuto i (solo si tengo energía)
-            si s > 0 entonces:
-                recarga2 = min(k-1, (s - 1) + f[i])
-                enemigos_eliminados = min(x[i], f[s])
-                atacar = enemigos_eliminados + OPT[i+1][recarga2]
-            si no:
-                atacar = -inf   // no es posible atacar
-
-            // Decisión óptima
-            OPT[i][s] = max(no_atacar, atacar)
-
-Respuesta:
-    OPT[1][s0]   // máxima cantidad de enemigos eliminados desde el minuto 1
-```
+    No consideramos que fuese necesario agregar lógica para el manejo de dependencias a la entrega, ya que lo más 
+    importante se encuentra en la ejecución del algoritmo y visualización de su salida. Por lo cual, el
+    código que llama a la función generadora se encuentra comentado, al igual que el import de 
+    la correspondiente función.
+        
+     En caso de querer generar gráficos, es necesario descomentar y bajarse las dependencias. Puede ser que una 
+     dependencia adicional sea requerida (TkAgg).
