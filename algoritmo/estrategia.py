@@ -1,9 +1,7 @@
 def planear_estrategia(soldados, ataques):
     opt = [0] * (len(soldados) + 1)
     for i in range(1, len(soldados) + 1):
-        #opcion 1 no atacar
-        opt[i] = opt[i-1]# creo que esto nunca es solucion
-        #opcion 2 atacar probando todas las cargas de energia
+        #Atacar probando todas las cargas de energia
         for carga in range(1, i + 1):
             ultimo_ataque = i - carga
             rafaga_actual = soldados[i-1]

@@ -2,7 +2,7 @@ from algoritmo.estrategia import planear_estrategia
 from lector_de_archivos.parser_de_batallas import leer_batalla_txt
 from printer.printer import imprimir_estrategia
 from pruebas import correr_pruebas_sobre_estrategias
-from utils.graficos import generar_grafico
+#from utils.graficos import generar_grafico
 import sys
 
 ARCHIVOS_CATEDRA = "1"
@@ -37,7 +37,8 @@ def main():
     elif (modo_de_ejecucion == PRUEBAS_ARCHIVOS_CATEDRA) or (modo_de_ejecucion == PRUEBAS_ARCHIVOS_PROPIOS):
         correr_pruebas(modo_de_ejecucion)
     elif modo_de_ejecucion == GENERAR_GRAFICO:
-        generar_grafico()
+        print(None)
+        #generar_grafico()
     else:
         raise Exception("Modo de ejecución incorrecto")
 
