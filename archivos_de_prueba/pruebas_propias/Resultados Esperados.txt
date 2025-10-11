@@ -8,9 +8,9 @@ Estrategia: Cargar, Atacar, Cargar, Atacar, Atacar
 Cantidad de tropas eliminadas: 50
 
 ejemplo2.txt
-Estrategia: Cargar, Cargar, Atacar, Atacar, Cargar, Atacar, Atacar, Cargar, Cargar, Atacar
+Estrategia: Cargar, Cargar, Atacar, Atacar
 Cantidad de tropas eliminadas: 35
 
 ejemplo3.txt
-Estrategia: Cargar, Cargar, Cargar, Atacar, Cargar, Atacar, Cargar, Atacar, Cargar, Atacar
+Estrategia: Cargar, Cargar, Atacar
 Cantidad de tropas eliminadas: 50
