@@ -1,0 +1,16 @@
+Los resultados mostrados aquí son óptimos. Es decir, el resultado de la cantidad de tropas debe coincidir con el mostrado.
+Les mostramos además qué secuencia de Carga y Ataque permiten llegar a ese resultado, con el fin que les ayude
+a debuggear en caso de toparse con errores. Si llegan a otra secuencia de Cargas y Ataques que lleven al mismo valor
+óptimo, también será correcto, por supuesto.
+
+ejemplo1.txt
+Estrategia: Cargar, Atacar, Cargar, Atacar, Atacar
+Cantidad de tropas eliminadas: 50
+
+ejemplo2.txt
+Estrategia: Cargar, Cargar, Atacar, Atacar
+Cantidad de tropas eliminadas: 35
+
+ejemplo3.txt
+Estrategia: Cargar, Cargar, Atacar
+Cantidad de tropas eliminadas: 50
