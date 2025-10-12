@@ -24,6 +24,17 @@ def correr_pruebas_sobre_estrategias(son_pruebas_propias: bool):
             print(f"  Estrategia: {'OK' if ok_estrategia else 'DIFERENTE'}")
         
         
-    else:    
-        print("TO DO")
-        return
+    else:
+        resultados_esperados = obtener_resultados_esperados(path_base_de_archivos + "pruebas_propias/Resultados Esperados.txt")
+        estrategias_esperadas = obtener_estrategias_esperadas(path_base_de_archivos + "pruebas_propias/Resultados Esperados.txt")
+
+        tests = [k for k in resultados_esperados.keys()]
+        for test in tests:
+            soldados, ataques = leer_batalla_txt("archivos_de_prueba/pruebas_propias/" + test)
+            cantidad, estrategia = planear_estrategia(soldados, ataques)
+            esperado = resultados_esperados[test]
+            estrategia_esp = estrategias_esperadas[test]
+            ok_cantidad = cantidad == esperado
+            ok_estrategia = estrategia == estrategia_esp
+            print(f"{test}: calculado={cantidad} esperado={esperado} {'OK' if ok_cantidad else 'ERROR'}")
+            print(f"  Estrategia: {'OK' if ok_estrategia else 'DIFERENTE'}")
